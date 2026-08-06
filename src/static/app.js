@@ -299,10 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (endTime) {
         const formattedEndTime = formatTime(endTime);
-
-        if (formattedEndTime !== startTime) {
-          return `${days}, ${startTime} - ${formattedEndTime}`;
-        }
+        return `${days}, ${startTime} - ${formattedEndTime}`;
       }
 
       return `${days} at ${startTime}`;

@@ -20,11 +20,17 @@ def hash_password(password):
 def init_database():
     """Initialize seeded database records"""
 
-    # Ensure seeded activities exist without overwriting existing signups
+    # Ensure seeded activities exist and refresh seeded metadata without overwriting signups
     for name, details in initial_activities.items():
+        seeded_details = {
+            key: value for key, value in details.items() if key != "participants"
+        }
         activities_collection.update_one(
             {"_id": name},
-            {"$setOnInsert": details},
+            {
+                "$set": seeded_details,
+                "$setOnInsert": {"participants": details["participants"]}
+            },
             upsert=True
         )
             
